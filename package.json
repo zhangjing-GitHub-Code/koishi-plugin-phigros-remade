@@ -1,0 +1,22 @@
+{
+  "name": "koishi-plugin-phigros-redo",
+  "description": "一堆依赖给我整麻了，拉源代码也不知道怎么在npm发布，重命名一个吧，获取phigros.b19的",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {},
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "devDependencies": {},
+  "peerDependencies": {
+    "koishi": "4.17.8"
+  }
+}
