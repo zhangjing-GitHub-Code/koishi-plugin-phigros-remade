@@ -393,6 +393,9 @@ body {
 }
 
 function renderSong(order: string | number, rks: RKSInfo) {
+  // console.log("???")
+  // console.log(rks)
+  // console.log(rks.song.chart[rks.level].difficulty)
   return <div class="song parallelogram">
     <div class="order no-unskew">
       <div>{order}</div>
@@ -406,7 +409,7 @@ function renderSong(order: string | number, rks: RKSInfo) {
     <div class="difficulty no-unskew">
       <div class={`${rks.level} no-unskew`}>
         <div class="level">{rks.level}</div>
-        <div class="diff">{rks.song.chart[rks.level].difficulty.toFixed(2)}</div>
+        <div class="diff">{Number(rks.song.chart[rks.level].difficulty).toFixed(2)}</div>
       </div>
     </div>
 

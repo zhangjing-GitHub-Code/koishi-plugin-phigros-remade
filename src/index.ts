@@ -51,9 +51,10 @@ export function apply(ctx: Context, config: Config) {
   }
 
   const setAilas = async (alias: string, songId: string) => {
-    const query = { alias: alias.toLowerCase(), songId }
-    const [exist] = await ctx.database.get('phigros_alias_v3', query)
-    if (!exist) await ctx.database.create('phigros_alias_v3', query)
+    const query1 = {alias: alias.toLowerCase(), songId }
+    const [exist] = await ctx.database.get('phigros_alias_v3', query1)
+    const query2 = {id:null, alias: alias.toLowerCase(), songId }
+    if (!exist) await ctx.database.create('phigros_alias_v3', query2)
   }
 
   ctx.i18n.define('zh', require('./locales/zh-CN'))
@@ -75,6 +76,10 @@ export function apply(ctx: Context, config: Config) {
   })
 
   ctx.on('ready', async () => {
+    // for (let i = 1; i <= 15764; i++) {
+    //   let query = {id: i}
+    //   await ctx.database.remove('phigros_alias_v3', query)
+    // }
     const songsInfo = await api.songsInfo()
     await Promise.all(songsInfo.map(i =>
       Promise.all([
@@ -143,12 +148,27 @@ export function apply(ctx: Context, config: Config) {
       if (!session.user.phiToken) return session.text('.no-token')
 
       const save = await api.record(session.user.phiToken)
+      // for (let i = 0; i < save.length; i++) {
+      //   console.log(save[i])
+      // }
       const { challengeMode } = await api.summary(session.user.phiToken)
 
       const songs = await api.songsInfo()
 
       const rksInfo = rks(save.map(r => {
         const a = songs.find(s => s.id === r[0])
+        // if (r[0] == 'PRAW.Bluewind') {
+        //   for (let i = 0; i < songs.length; i++) {
+        //     console.log(songs[i].id)
+        //     if (songs[i].id == 'PRAW.Bluewind') {
+        //       console.log(songs[i])
+        //     }
+        //   }
+        // }
+        
+        if (a == undefined) {
+          console.log(r)
+        } 
         return [r[1], a]
       }))
 

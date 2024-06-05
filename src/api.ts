@@ -2,6 +2,8 @@ import type { SongRecord, LevelRecord, SongInfo, RKSInfo, Save, SaveSummary } fr
 import { createDecipheriv } from 'crypto'
 import { fromBuffer, Entry } from 'yauzl'
 import type { Quester, Context } from 'koishi'
+import songs from '../data/songs.json'
+import * as fs from 'fs'
 
 const levels = {
   EZ: 1 << 0,
@@ -110,8 +112,14 @@ export class API {
     return nickname
   }
 
-  songsInfo(): Promise<SongInfo[]> {
-    return this.http.get('https://ghproxy.com/https://raw.githubusercontent.com/koishijs/koishi-plugin-phigros/main/data/songs.json')
+  songsInfo()  {
+    // Promise<SongInfo[]>
+    // const data = fs.readFileSync('/home/mqnu/program/koishi-app/external/phigros/data/songs.json', 'utf8');
+    // const json = JSON.parse(data);
+    // console.log(json);
+    // return Promise.resolve(JSON.parse(fs.readFileSync('/home/mqnu/program/koishi-app/external/phigros/data/songs.json', 'utf8')));
+    // this.http.get()
+    return Promise.all(songs)
   }
 }
 
@@ -183,7 +191,14 @@ export function songRKS(record: SongRecord, song: SongInfo): RKSInfo[] {
   return record.map(([level, record]) => {
     let rks: number
     if (record.accuracy < 70) rks = 0
-    else rks = Math.pow((record.accuracy - 55) / 45, 2) * song.chart[level].difficulty
+    else {
+      // try {
+      //   let i1 = song.chart[level]
+      // }catch{
+      //   console.log(song, level)
+      // }
+      rks = Math.pow((record.accuracy - 55) / 45, 2) * song.chart[level].difficulty
+    }
     return { level, record, song, rks }
   })
 }
