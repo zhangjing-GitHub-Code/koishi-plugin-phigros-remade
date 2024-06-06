@@ -1,22 +1,54 @@
 {
   "name": "koishi-plugin-phigros-redo",
   "description": "一堆依赖给我整麻了，拉源代码也不知道怎么在npm发布，重命名一个吧，获取phigros.b19的",
-  "version": "0.0.1",
+  "contributors": [
+    "seidko <seidko.coding@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mqnu00/koishi-plugin-phigros"
+  },
+  "homepage": "https://github.com/mqnu00/koishi-plugin-phigros",
+  "version": "2.0.4",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "author": {
+    "email": "647983952@qq.com",
+    "name": "mqnu00",
+    "url": "https://github.com/mqnu00"
+  },
   "files": [
     "lib",
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "phigros",
+    "score"
   ],
-  "devDependencies": {},
+  "dependencies": {
+    "yauzl": "^2.10.0"
+  },
   "peerDependencies": {
-    "koishi": "4.17.8"
+    "koishi": "^4.13.1"
+  },
+  "devDependencies": {
+    "@types/yauzl": "^2.10.0",
+    "koishi-plugin-puppeteer": "^3.5.0"
+  },
+  "koishi": {
+    "description": {
+      "en": "Koishi plugin for everything Phigros!",
+      "zh": "开箱即用的 Koishi Phigros 查分 b40 插件！"
+    },
+    "service": {
+      "required": [
+        "database",
+        "puppeteer"
+      ]
+    }
   }
 }
