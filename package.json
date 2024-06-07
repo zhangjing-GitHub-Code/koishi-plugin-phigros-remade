@@ -9,7 +9,7 @@
     "url": "https://github.com/mqnu00/koishi-plugin-phigros"
   },
   "homepage": "https://github.com/mqnu00/koishi-plugin-phigros",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "author": {
@@ -30,6 +30,7 @@
     "score"
   ],
   "dependencies": {
+    "@satorijs/element": "3.1.7",
     "yauzl": "^2.10.0"
   },
   "peerDependencies": {
