@@ -60,7 +60,7 @@ export function apply(ctx: Context, config: Config) {
   const setAilas = async (alias: string, songId: string) => {
     const query1 = {alias: alias.toLowerCase(), songId }
     const [exist] = await ctx.database.get('phigros_alias_v3', query1)
-    const query2 = {id:null, alias: alias.toLowerCase(), songId }
+    const query2 = { alias: alias.toLowerCase(), songId }
     if (!exist) await ctx.database.create('phigros_alias_v3', query2)
   }
   lg.info("defining i18n");
@@ -81,8 +81,8 @@ lg.info('extend table');
       nullable: false,
       type: 'string',
     },
-  })
-  lg.info("caling on resdy");
+  },{autoInc:true});
+  // lg.info("caling on resdy");
   ctx.on('ready', async () => {
     // for (let i = 1; i <= 15764; i++) {
     //   let query = {id: i}
@@ -197,11 +197,11 @@ lg.info('extend table');
     })
 
   if (config.shortcut) {
-    unbind.shortcut('unbind', { i18n: true })
-    bind.shortcut('bind', { i18n: true, fuzzy: true })
-    alias.shortcut('alias', { i18n: true, fuzzy: true })
-    listAlias.shortcut('list-alias', { i18n: true, fuzzy: true })
-    score.shortcut('score', { i18n: true, fuzzy: true })
-    b19.shortcut('b19', { i18n: true })
+    unbind.shortcut('punbind', { i18n: true })
+    bind.shortcut('pbind', { i18n: true, fuzzy: true })
+    alias.shortcut('palias', { i18n: true, fuzzy: true })
+    listAlias.shortcut('plist-alias', { i18n: true, fuzzy: true })
+    score.shortcut('pscore', { i18n: true, fuzzy: true })
+    b19.shortcut('phib19', { i18n: true })
   }
 }
