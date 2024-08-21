@@ -2,8 +2,9 @@ import type { SongRecord, LevelRecord, SongInfo, RKSInfo, Save, SaveSummary } fr
 import { createDecipheriv } from 'crypto'
 import { fromBuffer, Entry } from 'yauzl'
 import type { Quester, Context } from 'koishi'
-import songs from '../data/songs.json'
+// import songs from '../data/songs.json'
 import * as fs from 'fs'
+import * as si from './songinfo';
 
 const levels = {
   EZ: 1 << 0,
@@ -112,14 +113,14 @@ export class API {
     return nickname
   }
 
-  songsInfo()  {
+  async songsInfo()  {
     // Promise<SongInfo[]>
     // const data = fs.readFileSync('/home/mqnu/program/koishi-app/external/phigros/data/songs.json', 'utf8');
     // const json = JSON.parse(data);
     // console.log(json);
     // return Promise.resolve(JSON.parse(fs.readFileSync('/home/mqnu/program/koishi-app/external/phigros/data/songs.json', 'utf8')));
     // this.http.get()
-    return Promise.all(songs)
+    return await si.getSongInfo();//
   }
 }
 

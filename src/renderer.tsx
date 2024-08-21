@@ -1,4 +1,5 @@
 import type { RKSInfo, SongInfo, SongRecord, LevelRecord } from "./types"
+// import type { html } from 'puppeteer';
 
 function rankingImage(level: LevelRecord) {
   const { score, fullCombo } = level
@@ -367,25 +368,25 @@ body {
     `}</style>
     </head>
     <div id="main">
-      <div id="header-container" class="parallelogram">
-        <div id="header-title" class="para-decorate no-unskew block shadow">
+      <div id="header-container" className="parallelogram">
+        <div id="header-title" className="para-decorate no-unskew block shadow">
           <img src="https://img.moegirl.org.cn/common/a/ab/Phigros_Icon_3.0.0.png" />
           <span>Phigros</span>
           <p>Ranking Score 成绩图</p>
         </div>
-        <div id="header-player-info" class="para-decorate no-unskew block">
-          <div id="player-name" class="shadow">{playerName}</div>
+        <div id="header-player-info" className="para-decorate no-unskew block">
+          <div id="player-name" className="shadow">{playerName}</div>
           {/* TODO: rank render */}
-          <div class={`rank rank-${challangeRank} no-unskew`}>
+          <div className={`rank rank-${challangeRank} no-unskew`}>
             <div>{challangeLevel}</div>
           </div>
-          <div id="total-rks" class="no-unskew">
+          <div id="total-rks" className="no-unskew">
             <div>{rks.toFixed(2)}</div>
           </div>
         </div>
       </div>
-      <div class="songs">{renderSong('φ', phi)}</div>
-      <div class="songs">
+      <div className="songs">{renderSong('φ', phi)}</div>
+      <div className="songs">
         {b19.map((r, i) => renderSong(i + 1, r))}
       </div>
     </div>
@@ -396,34 +397,34 @@ function renderSong(order: string | number, rks: RKSInfo) {
   // console.log("???")
   // console.log(rks)
   // console.log(rks.song.chart[rks.level].difficulty)
-  return <div class="song parallelogram">
-    <div class="order no-unskew">
+  return <div className="song parallelogram">
+    <div className="order no-unskew">
       <div>{order}</div>
     </div>
 
-    <div class="illustration no-unskew">
-      <div class="illus" style={`background: url('${rks.song.thumbnail}'), linear-gradient(transparent 60%, #000a 90%); background-size: cover;`}>&nbsp;</div>
-      <div class="name">{rks.song.name}</div>
+    <div className="illustration no-unskew">
+      <div className="illus" style={ `background: url(${rks.song.thumbnail}), linear-gradient(transparent 60%, #000a 90%), background-size: cover` }>&nbsp;</div>
+      <div className="name">{rks.song.name}</div>
     </div>
 
-    <div class="difficulty no-unskew">
-      <div class={`${rks.level} no-unskew`}>
-        <div class="level">{rks.level}</div>
-        <div class="diff">{Number(rks.song.chart[rks.level].difficulty).toFixed(2)}</div>
+    <div className="difficulty no-unskew">
+      <div className={`${rks.level} no-unskew`}>
+        <div className="level">{rks.level}</div>
+        <div className="diff">{Number(rks.song.chart[rks.level].difficulty).toFixed(2)}</div>
       </div>
     </div>
 
-    <div class="block record no-unskew">
+    <div className="block record no-unskew">
 
-      <img class="ranking" src={rankingImage(rks.record)} />
-      <div class="score no-unskew">
+      <img className="ranking" src={rankingImage(rks.record)} />
+      <div className="score no-unskew">
         <div>{rks.record.score}</div>
       </div>
-      <div class="acc">&nbsp;{rks.record.accuracy.toFixed(2)}%</div>
-      <div class="rks no-unskew">
-        <div class={`${rks.level} no-unskew`}>
-          <div class="level">rks</div>
-          <div class="diff">{rks.rks.toFixed(2)}</div>
+      <div className="acc">&nbsp;{rks.record.accuracy.toFixed(2)}%</div>
+      <div className="rks no-unskew">
+        <div className={`${rks.level} no-unskew`}>
+          <div className="level">rks</div>
+          <div className="diff">{rks.rks.toFixed(2)}</div>
         </div>
       </div>
     </div>
@@ -610,25 +611,25 @@ export function renderScore(record: SongRecord, info: SongInfo) {
     `}</style>
     </head>
     <main>
-      <div id="column" class="parallelogram-column">
-        <div class="no-unskew">
+      <div id="column" className="parallelogram-column">
+        <div className="no-unskew">
           <div id="info">
             <span id="name">{info.name}</span>
             <span id="artist">{info.artist}</span>
           </div>
           <div id="cover">&nbsp;</div>
         </div>
-        <div id="level-container" class="no-unskew">
+        <div id="level-container" className="no-unskew">
           {record.map(([level, record]) => {
-            return <div class="level no-unskew">
-              <div class="difficulty no-unskew">
-                <div class={level + ' no-unskew'}>
-                  <div class="level-name">{level}</div>
-                  <div class="diff">{info.chart[level].level}</div>
+            return <div className="level no-unskew">
+              <div className="difficulty no-unskew">
+                <div className={level + ' no-unskew'}>
+                  <div className="level-name">{level}</div>
+                  <div className="diff">{info.chart[level].level}</div>
                 </div>
               </div>
-              <div class="score">{record.score}</div>
-              <div class="acc">{record.accuracy.toFixed(2)}%</div>
+              <div className="score">{record.score}</div>
+              <div className="acc">{record.accuracy.toFixed(2)}%</div>
               <img src={rankingImage(record)} />
             </div>
           })}

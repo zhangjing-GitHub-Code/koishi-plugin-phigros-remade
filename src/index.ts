@@ -2,6 +2,7 @@ import { Context, Schema, Session, SessionError, deduplicate, h } from 'koishi'
 import { API, tokenPattern, rks } from './api'
 import { SongInfo } from './types'
 import { renderB19, renderScore } from './renderer'
+import * as ut from './utils';
 
 declare module 'koishi' {
   interface User {
@@ -21,14 +22,20 @@ export interface Config {
   shortcut: boolean
 }
 
-export const name = 'phigros'
-export const using = ['database', 'puppeteer']
+export const name = 'phigros-remade'
+export const inject = ['database','puppeteer']
 export const Config: Schema<Config> = Schema.object({
   shortcut: Schema.boolean().default(true).description('是否允许通过 shortcut 触发指令')
 })
 
+let lg=ut.u_lgr;
+
 export function apply(ctx: Context, config: Config) {
+	lg.info('creating api');
   const api = new API(ctx)
+	lg.info('loading kctx');
+  ut.loadKCtx(ctx);
+	lg.info('decling func');
   const querySong = async (alias: string, session: Session): Promise<SongInfo> => {
     const matchs = await ctx.database.get('phigros_alias_v3', { alias: { $regex: alias.toLowerCase() } })
       .then(a => deduplicate(a.map(a => a.songId)))
@@ -56,9 +63,10 @@ export function apply(ctx: Context, config: Config) {
     const query2 = {id:null, alias: alias.toLowerCase(), songId }
     if (!exist) await ctx.database.create('phigros_alias_v3', query2)
   }
+  lg.info("defining i18n");
 
   ctx.i18n.define('zh', require('./locales/zh-CN'))
-
+lg.info('extend table');
   ctx.database.extend('user', {
     phiToken: {
       type: 'char',
@@ -74,12 +82,13 @@ export function apply(ctx: Context, config: Config) {
       type: 'string',
     },
   })
-
+  lg.info("caling on resdy");
   ctx.on('ready', async () => {
     // for (let i = 1; i <= 15764; i++) {
     //   let query = {id: i}
     //   await ctx.database.remove('phigros_alias_v3', query)
     // }
+    ut.u_lgr.info("Ready and Syncing.");
     const songsInfo = await api.songsInfo()
     await Promise.all(songsInfo.map(i =>
       Promise.all([
@@ -129,7 +138,8 @@ export function apply(ctx: Context, config: Config) {
 
   const score = ctx.command('phigros.score <name:text>', { checkArgCount: true })
     .userFields(['phiToken'])
-    .action(async ({ session }, name) => {
+    .action(async (_, name) => {
+		let session=_.session;
       if (!session.user.phiToken) return session.text('.no-token')
 
       const song = await querySong(name, session)
@@ -144,7 +154,9 @@ export function apply(ctx: Context, config: Config) {
 
   const b19 = ctx.command('phigros.b19')
     .userFields(['phiToken'])
-    .action(async ({ session }) => {
+	// ts-ignore
+    .action(async (_) => {
+		let session=_.session;
       if (!session.user.phiToken) return session.text('.no-token')
 
       const save = await api.record(session.user.phiToken)

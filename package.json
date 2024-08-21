@@ -1,21 +1,21 @@
 {
-  "name": "koishi-plugin-phigros",
+  "name": "koishi-plugin-phigros-remade",
   "description": "Koishi plugin for everything Phigros!",
   "repository": {
     "type": "git",
-    "url": "https://github.com/koishijs/koishi-plugin-phigros.git"
+    "url": "https://github.com/zhangjing-GitHub-Code/koishi-plugin-phigros-remade.git"
   },
   "bugs": {
-    "url": "https://github.com/koishijs/koishi-plugin-phigros/issues"
+    "url": "https://github.com/zhangjing-GitHub-Code/koishi-plugin-phigros-remade/issues"
   },
-  "homepage": "https://github.com/koishijs/koishi-plugin-phigros",
-  "version": "2.0.2",
+  "homepage": "https://github.com/zhangjing-GitHub-Code/koishi-plugin-phigros-remade",
+  "version": "2.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "author": {
-    "email": "seidko.coding@gmail.com",
-    "name": "Seidko",
-    "url": "https://github.com/Seidko"
+    "email": "zhangjing20091105@126.com",
+    "name": "Jade Zhang",
+    "url": "https://github.com/zhangjing-GitHub-Code"
   },
   "files": [
     "lib",
@@ -23,7 +23,7 @@
   ],
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "atsc -b"
+    "build": "npx atsc -b&&npx yakumo build"
   },
   "keywords": [
     "bot",
@@ -38,10 +38,13 @@
     "yauzl": "^2.10.0"
   },
   "peerDependencies": {
+    "@satorijs/element": "^3.1.7",
     "koishi": "^4.13.1"
   },
   "devDependencies": {
+    "@satorijs/element": "^3.1.7",
     "@types/yauzl": "^2.10.0",
+    "cosmokit": "^1.6.2",
     "koishi-plugin-puppeteer": "^3.5.0"
   },
   "koishi": {
